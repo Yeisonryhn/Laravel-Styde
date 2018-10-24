@@ -1,0 +1,111 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	
+}
+
+header{
+	width: 1000px;
+	height: 100px;
+	position: relative;
+    margin: 20px auto;
+    /*background-color: #ddd;
+   */
+    
+                
+ }
+
+#logo{
+	position: absolute;
+	top: 20px;
+	left:20px;
+	width: 200px;
+	height: 60px;
+	background: #aaa;
+	font-family: 'Pacifico';
+    font-size:20px;  
+    text-align: center;
+    line-height: 60px;  
+}
+
+.usuario{
+	position: absolute;	
+	width: 80px;
+	height: 30px;
+	background: rgb(81,238,255);
+	border-radius: 10%;
+}
+
+#ingreso{
+	
+	top: 15px;
+	left: 750px;
+	text-align: center;
+	line-height: 30px; 
+
+}
+
+#registro{
+	
+	top: 15px;
+	left: 850px;
+	text-align: center;
+	line-height: 30px; 
+}
+aside{
+	position: relative;
+	background: rgb(233	,233,242);	
+	height: 1000px;
+	width: 1000px;
+	margin: 20px auto;
+}
+
+#imagen {
+	position: absolute;
+	top: 20px;
+	left: 50px;
+
+}
+
+#articulo article{
+	position: absolute;
+	top: 650px;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-family: 'Raleway', bold;
+	text-align: justify;
+	font-size: 20px;
+}
+#articulo h1{
+	font-size: 30px;
+	text-align: center;	
+}
+.ancho{
+	width: 1900px;
+}
+footer{
+	
+	height: 100px;
+	position: relative;
+	margin: 20px auto ;
+	margin-bottom: 0;
+	background: rgb(73,76,77);	
+}
+
+#linea{
+	height: 2px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgb(81,238,255);	
+}
+
+#copy{
+	position: absolute;
+	top:30px;
+	left: 400px;
+	font-family: 'Raleway', bold;
+	text-align: center;
+	font-size: 40px;
+}
