@@ -8,8 +8,13 @@ class UserController extends Controller
 {
     public function index(){
 
-    	$users = ['Joel','Ellie','Tess','Tommy', 'Yeison','Rahisbel','<script>alert("Clicker")</script>'];
-    	//trae codigo de javascrit que se debe escapar para evitar un ataque sql injection, mediante el metodo helper e(), dentro de la vista
+        if (request()->has('empty')){
+            $users = [];
+        }else{
+            $users = ['Joel','Ellie','Tess','Tommy', 'Yeison','Rahisbel','<script>alert("Clicker")</script>'];
+            //trae codigo de javascrit que se debe escapar para evitar un ataque sql injection, mediante el metodo helper e(), dentro de la vista
+        }
+    	
 
     	return view('users', [
     		'users'/*nombre variable*/=> $users,/*Variable a pasar*/
