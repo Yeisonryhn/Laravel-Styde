@@ -16,6 +16,7 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200);//estado 200 todo cargó correctamente
+                                    //codigo 404 url no existe
     }
 }
