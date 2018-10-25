@@ -16,10 +16,11 @@ Route::get('/usuarios/nuevo', function(){
 });
 
 Route::get('/saludo/{name}/{nickname?}', function($name, $nickname = null){//el segundo parametro es opcional
+	$name=ucfirst($name);
 	if($nickname){
 		return "Hola {$name}, tu apodo es {$nickname}";	
 	}else{
-		return "Hola {$name}, no tienes apodo.";
+		return "Hola {$name}.";
 	}
 	
 });
