@@ -16,7 +16,7 @@ class UserController extends Controller
         }
     	
 
-    	return view('users', [
+    	return view('users/index', [
     		'users'/*nombre variable*/=> $users,/*Variable a pasar*/
     		'title' => 'Listado de usuarios'
     						]);//de esta manera se pasan datos a una vista, con un arreglo asociativo
@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function show($id){
-    	return "Ruta para el usuario: {$id}";
+    	return view('users/show', ['id' => $id]);
     }
 
     public function create(){
