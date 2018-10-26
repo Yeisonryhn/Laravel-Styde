@@ -23,6 +23,25 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
         //en caso de error 1071 Para las personas que lleguen a tener el error de "Syntax error or access violation: 1071 Specified key was too long...." una forma de solucionarlo es yendo al archivo "AppServiceProvider.php" ubicado en "mi-proyecto/app/providers/AppServiceProvider.php" lo que tienen que hacer es incluir al principio del archivo "use Illuminate\Support\Facades\Schema;" y en la funcion llamada "boot" incluir "Schema::defaultStringLength(191);".  Al final guardan el archivo y vuelven a ejecutar el comando  php artisan migrate﻿
+
+        /*
+            COMANDOS DE PHP ARTISAN MIGRATE
+                php artisan migrate:reset----------------------------------------------- 
+                Este devuelve todas las migraciones en orden inverso
+
+                php artisan migrate:refresh---------------------------------------------
+                Este comando devuelve todas las migraciones y luego ejecuta todas las migraciones, es decir, primero ejecuta el metodo down y luego ejecuta el metodo up de todas las tablas.
+                ESTOS DOS COMANDOS SUELEN SER DESTRUCTIVOS, YA QUE ELIMINAN TODA LA ESTRUCTURA DE LA BASE DE DATOS
+
+                para solucionar esto es recomendable que para hacer modificaciones en la estructura de una base de datos en produccion se creen nuevas migraciones.
+
+                php artisan migrate:rollback--------------------------------------------
+                Devuelve el ultimo lote de migracion ejecutado
+
+                
+
+
+        */
         });
     }
 
