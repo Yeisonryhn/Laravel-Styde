@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         //esta funcion es la que crea la tabla de usuarios
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('profession_id');
+            $table->unsignedInteger('profession_id')->nullable();
             $table->foreign('profession_id')->references('id')->on('professions');
             $table->string('name');
             $table->string('email')->unique();
@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
                 php artisan migrate:rollback--------------------------------------------
                 Devuelve el ultimo lote de migracion ejecutado
 
-                php artisan migrate:fresh
+                php artisan migrate:id3_get_frame_short_name(frameId)
 
 
 
