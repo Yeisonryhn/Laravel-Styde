@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+//OJOOOOOOOOO PUEDE QUE AL USAR GIT, SE NECESITE USAR ESTE COMANDO
+//composer dump-autoload
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
     		'professions',
     		'users'
     	]);
+       
         $this->call(ProfessionSeeder::class);//es necesario registrar aqui los seeders que se vayan creando
         $this->call(UserSeeder::class);
     }
