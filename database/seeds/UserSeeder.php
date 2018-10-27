@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\User;
+use App\Profession;
 class UserSeeder extends Seeder
 {
     /**
@@ -35,9 +37,19 @@ class UserSeeder extends Seeder
             'name'=>'Yeison Fuentes',
             'email'=>'Yeison@Fuentes',
             'password'=>bcrypt('laravel'),
-            'profession_id' => $profession->id,
-            
+            'profession_id' => $profession->id,         
 
+        ]);
+        //CONSULTAS UTILIZANDO UN MODELO DE LARAVEL------------------------------------------------------
+        //$profession = Profession::select('id')->where('title', '=', 'Modelador 3D')->first();
+        //o tambien asi
+        $profession = Profession::where('title', 'Modelador 3D')->value('id');
+        //USUARIO CREADO CON UN MODELO DE LARAVEL--------------------------------------------------------        
+        User::create([
+            'name'=>'Rahisbel Herrera',
+            'email'=>'Rahisbel@Herrera',
+            'password'=>bcrypt('laravel2'),
+            'profession_id' => $profession,
         ]);
     }
 }

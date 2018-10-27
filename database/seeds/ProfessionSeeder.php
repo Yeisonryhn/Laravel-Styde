@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 
 use Illuminate\Support\Facades\DB;// OJOOOOOOOO, ES NECESARIO IMPORTAR ESTA CLASE PARA USAR LA CLASE DB EN LA FUNCTION RUN
-
+use \App\Profession;
 class ProfessionSeeder extends Seeder
 {
     /**
@@ -40,6 +40,18 @@ class ProfessionSeeder extends Seeder
         	'title' => 'Diseñador de Videojuegos',
 
         ]);
+
+        /*
+            Tambien se pueden ingresar datos con los modelos de laravel de la siguiente manera
+            1 Crear el modelo con el comando php artisan make:model Profession (se guardan en la carpeta app) revisarlo
+            2.
+        */
+
+        //---------------------------------------------------------------------------------------------------    
+        Profession::create([//-------------------------------------------------------------------------------
+            'title' => 'Modelador 3D',//---------------------------------------------------------------------
+        ]);//------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------
 
         /*
 			LOS SEEDERS SE USAN PARA INGRESAR DATA DE PRUEBA A LA BASE DE DATOS DE LA APLICACION, SE EJECUTAN POR MEDIO DEL COMANDO
