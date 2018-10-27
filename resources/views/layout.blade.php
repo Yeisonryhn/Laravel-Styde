@@ -68,7 +68,7 @@
 
     <footer class="footer">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">&copy JRyhn 2018. Todos los derechos reservados.</span>
       </div>
     </footer>
 

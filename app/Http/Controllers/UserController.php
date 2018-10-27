@@ -37,7 +37,7 @@ class UserController extends Controller
     }
 
     public function create(){
-    	return 'Ruta para crear un nuevo usuario.';
+    	return view('login.registro');
     }
 
 }
