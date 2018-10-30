@@ -51,5 +51,9 @@ class UserSeeder extends Seeder
             'password'=>bcrypt('laravel2'),
             'profession_id' => $profession,
         ]);
+
+        //NOTA: al usar el metodo Profession::all(); o el metodo Profession::get(); se recibe un objeto de la clase collection, trae un array de objetos de la clase collection, para poder trabajar con POO
+
+        //Nota, para probar estos metodos se puede usar tinker, al teclear el comando php artisan tinker.
     }
 }
