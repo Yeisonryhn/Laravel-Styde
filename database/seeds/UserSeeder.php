@@ -59,6 +59,26 @@ class UserSeeder extends Seeder
             'password'=>bcrypt('laravel3'),
             'profession_id' => $profession,
         ]);
+        /*Lo siguiente se llama model factory, se usa para crear registros automaticamente, para no tener
+        que hacer lo que tenemos arriba*/
+        factory(User::class)->create();//Tambien se pueden crear datos de esta manera
+        factory(User::class)->create();
+        factory(User::class)->create();
+        //si se desea  agregar usuarios, pero ademas agregar su profesion(clave foránea), se hace lo siguiente
+        factory(User::class)->create(['profession_id'=>$profession]);//se le pasa un array asociativo con el dato a sobreescribir
+        factory(User::class,10)->create();//crea 10 usuarios mas
+        /*Si quisieramos hacer lo mismo con la clase profession habria que crearle el model factory de profession, desde la terminal con el 
+        comando php artisan make: factory  ProfessionFactory, termina en factory para continuar la convencion que tiene laravel por defecto
+        tambien se pueden crear de la siguiente manera php artisan make:factory ProfessionFactory --model=Profession
+        para tener mas informacion de los metodos que tiene php artisan make:factory se puede ejecutar el comando php artisan help make:factory
+        y asi con cualquier metodo*/
+
+        //tambien se puede crear un modelo con un migracion y su factory, ejecutar php artisan help make:model para mas informacion
+
+        //ojo se creó el modelo skill con su migracion y factory de la siguiente manera php artisan make:model -mf Skill
+      
+
+        
         /*NOTA: al usar el metodo Profession::all(); o el metodo Profession::get(); se recibe un objeto de la clase collection, 
         trae un array de objetos de la clase collection, para poder trabajar con POO
         */

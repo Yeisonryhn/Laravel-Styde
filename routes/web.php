@@ -2,7 +2,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/prueba',function(){
+    return view('indexx');
+});
 Route::get('/usuarios', 'UserController@index');
 
 Route::get('/usuarios/{id}', 'UserController@show')

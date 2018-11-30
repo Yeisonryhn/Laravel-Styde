@@ -41,6 +41,10 @@ class ProfessionSeeder extends Seeder
 
         ]);
 
+        //aqui usaremos el model factory
+        factory(Profession::class,5)->create();
+
+
         /*
             Tambien se pueden ingresar datos con los modelos de laravel de la siguiente manera
             1 Crear el modelo con el comando php artisan make:model Profession (se guardan en la carpeta app) revisarlo
