@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         //CONSULTAS UTILIZANDO UN MODELO DE LARAVEL------------------------------------------------------
         //$profession = Profession::select('id')->where('title', '=', 'Modelador 3D')->first();
         //o tambien asi
-        $profession = Profession::where('title', 'Modelador 3D')->value('id');
+        $profession = Profession::where('title', 'Desarrollador Back-End')->value('id');
         //USUARIO CREADO CON UN MODELO DE LARAVEL--------------------------------------------------------        
         User::create([
             'name'=>'Rahisbel Herrera',
@@ -52,6 +52,13 @@ class UserSeeder extends Seeder
             'profession_id' => $profession,
         ]);
 
+        $profession = Profession::where('title', 'Modelador 3D')->value('id');
+        User::create([
+            'name'=>'DAvid Chacon',
+            'email'=>'david@chacon',
+            'password'=>bcrypt('laravel3'),
+            'profession_id' => $profession,
+        ]);
         /*NOTA: al usar el metodo Profession::all(); o el metodo Profession::get(); se recibe un objeto de la clase collection, 
         trae un array de objetos de la clase collection, para poder trabajar con POO
         */
