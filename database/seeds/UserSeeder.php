@@ -52,8 +52,14 @@ class UserSeeder extends Seeder
             'profession_id' => $profession,
         ]);
 
-        //NOTA: al usar el metodo Profession::all(); o el metodo Profession::get(); se recibe un objeto de la clase collection, trae un array de objetos de la clase collection, para poder trabajar con POO
-
+        /*NOTA: al usar el metodo Profession::all(); o el metodo Profession::get(); se recibe un objeto de la clase collection, 
+        trae un array de objetos de la clase collection, para poder trabajar con POO
+        */
         //Nota, para probar estos metodos se puede usar tinker, al teclear el comando php artisan tinker.
+
+        /*Comandos para usar en Tinker, user->dato, para acceder a cualquier campo del usuario guardado en al variable
+        user->save();   para guardar los cambios en la DB   user->all(); para obtener todos los usuarios
+        
+            OJOOOOOOO TINKER ES UNA HERRAMIENTA MUY PODEROSA PARA HACER PRUEBAS*/
     }
 }

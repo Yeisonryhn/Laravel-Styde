@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('profession_id')->nullable();
             $table->foreign('profession_id')->references('id')->on('professions');
             $table->string('name');
+            $table->boolean('is_admin')->default(true);//para que por defecto no se admin
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

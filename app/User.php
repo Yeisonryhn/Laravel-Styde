@@ -14,6 +14,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+     /*este modelo ya trae la propiedad fillable definida*/
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -27,6 +29,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $casts = [ 
+        'is_admin'=>'boolean'
+    ];
     public static function findUserByEmail($email){
          return static::where(compact('email'))->first();
 
