@@ -16,12 +16,13 @@ class CreateInspeccionesTable extends Migration
         Schema::create('inspecciones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('placa')->unique()->nullable($value=false);
-            $table->string('marca');
-            $table->string('modelo');
-            $table->integer('año');
-            $table->string('estado_carro',200);
-            $table->date('fecha');            
-            $table->integer('propietario_cedula')->references('cedula')->on('propietarios');
+            $table->string('marca')->nullable($value=false);
+            $table->string('modelo')->nullable($value=false);
+            $table->integer('anio')->nullable($value=false);
+            $table->string('estado_carro',200)->nullable($value=false);
+            $table->date('fecha')->nullable($value=false);            
+            $table->integer('propietario_cedula')->references('cedula')->on('propietarios')->nullable($value=false);
+            $table->integer('propietario_id')->references('id')->on('propietarios')->nullable($value=false);
             $table->timestamps();
         });
     }
