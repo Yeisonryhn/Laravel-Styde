@@ -5,14 +5,25 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use App\User;
 
 class UsersModuleTest extends TestCase
 {
+    use RefreshDatabase;//para que refresque la base de datos de entorno de pruebas 
     /**
      *metodo que prueba la pagina de listado de usuarios
      * @test*/
     function al_cargar_el_listado_de_usuarios()
     {
+
+        factory(User::class)->create([
+            'name'=>'Joel'
+        ]);
+
+        factory(User::class)->create([
+            'name'=>'Ellie'
+        ]);
         $this->get('/usuarios')
         	->assertStatus(200)
         	->assertSee('Listado de usuarios')
@@ -25,7 +36,10 @@ class UsersModuleTest extends TestCase
      * @test*/
     function si_la_lista_esta_vacia()
     {
-        $this->get('/usuarios?empty')
+        DB::table('users')->truncate();
+        //para que vacie la tabla de usuarios del entorno de pruebas automatizadas
+        
+        $this->get('/usuarios')
             ->assertStatus(200)
             ->assertSee('Listado de usuarios')
             ->assertSee('No hay usuarios registrados.');
@@ -50,6 +64,6 @@ class UsersModuleTest extends TestCase
     {
         $this->get('/usuarios/nuevo')
         	->assertStatus(200)
-        	->assertSee('Ruta para crear un nuevo usuario.');
+        	->assertSee('Ruta para crear un nuevo usuario');
     }
 }

@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;//RECORDAR SIEMPRE IMPORTAR ESTA CLASE PARA USAR EL DB;
+use App\User;//SE DEBE IMPORTAR ESTA CLASE PARA PODER USAR EL MODELO USER PARA PODER TRAER DATOS DE LA BASE DE DATOS
 
 class UserController extends Controller
 {
     public function index(){
 
-        if (request()->has('empty')){
+        /*if (request()->has('empty')){
             $users = [];
         }else{
             $users = ['Joel','Ellie','Tess','Tommy', 'Yeison','Rahisbel','<script>alert("Clicker")</script>'];
             //trae codigo de javascrit que se debe escapar para evitar un ataque sql injection, mediante el metodo helper e(), dentro de la vista
-        }
-    	
-
+        }*/
+        //$users=DB::table('users')->get(); //TAMBIEN SE PUENDE TRAER DATOS DE LA BASE DE DATOS DE LA SIGUIENTE MANERA
+        $users=User::all();
+        //dd($users);
     	return view('users/index', [
     		'users'/*nombre variable*/=> $users,/*Variable a pasar*/
     		'title' => 'Listado de usuarios'
@@ -37,7 +40,7 @@ class UserController extends Controller
     }
 
     public function create(){
-    	return view('login.registro');
+    	return view('login/registro');
     }
 
 }
