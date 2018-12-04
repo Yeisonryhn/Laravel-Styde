@@ -8,9 +8,9 @@ Route::get('/prueba',function(){
 Route::get('/usuarios', 'UserController@index')
     ->name('users');
 //Route::get('/usuarios/')
-Route::get('/usuarios/{id}', 'UserController@show')
+Route::get('/usuarios/{user}', 'UserController@show')
     ->name('users.show')
-    ->where('id','[0-9]+'); // lo de los corchetes es un parámetro dinámico
+    ->where('user','[0-9]+'); // lo de los corchetes es un parámetro dinámico
 //Route::get('/usuarios/nuevo', 'UserController@')
 Route::get('/usuarios/nuevo', 'UserController@create')
     ->name('users.create');

@@ -35,8 +35,12 @@ class UserController extends Controller
 
     }
 
-    public function show($id){
-        $user=User::find($id);
+    public function show(User $user){//Ahora recibe un modelo de laravel
+        //$user=User::findOrFail($id);
+        /*if($user==null){
+            return view('errors.404');
+        }*/
+        //dd($user);
     	//return view('users/show', ['id' => $id]);
         return view('users/show', compact('user'));
     }

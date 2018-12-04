@@ -59,6 +59,17 @@ class UsersModuleTest extends TestCase
         	->assertStatus(200)
         	->assertSee('Nombre del usuario: Yeison Fuentes');
     }
+    /**
+     * *
+     * @test
+     *  */
+    function al_mostrar_error_404_si_el_usuario_no_existe()
+    {
+        $this->get('/usuarios/999')
+            ->assertStatus(404)
+            ->assertSee('No existe ese usuario.');
+
+    }
 
     /**
      * *metodo que prueba la ruta del nuevo usuario
