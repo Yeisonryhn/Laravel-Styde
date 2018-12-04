@@ -11,9 +11,12 @@
                 @foreach ($users as $user)
                     <!--<li><//?php echo e($user) ?></li>-->
                     <li>{{$user->name}}, {{$user->email}}</li>
-                    <a href="{{ url('/usuarios/'.$user->id)}}">Ver detalles</a>
+                    <a href="{{ url('/usuarios/'.$user->id)}}">Ver detalles</a><!--tambien se pueden usar comillas dobles para no tener que concatenar!-->
+                    <br><a href={{action('UserController@show', ['id' => $user->id])}}>ver detalles de otra manera</a>
+                    <br><a href="{{route('users.show',[ 'id' => $user->id ])}}">Usando rutas con nombre</a>
                     <!-- esta es una forma de redireccionar enlaces que nos ofrece laravel, tambien se puede hacer
-                     de la siguiente manera!-->
+                     de la siguiente manera otra manera de redireccionar rutas es usando rutas con nombre, es la mejor manera
+                     revisar en el archivo de rutas!-->
                 @endforeach   
             </ul>       
         @else

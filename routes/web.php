@@ -5,12 +5,15 @@ Route::get('/', function () {
 Route::get('/prueba',function(){
     return view('indexx');
 });
-Route::get('/usuarios', 'UserController@index');
+Route::get('/usuarios', 'UserController@index')
+    ->name('users');
 //Route::get('/usuarios/')
 Route::get('/usuarios/{id}', 'UserController@show')
-->where('id','[0-9]+'); // lo de los corchetes es un parámetro dinámico
+    ->name('users.show')
+    ->where('id','[0-9]+'); // lo de los corchetes es un parámetro dinámico
 //Route::get('/usuarios/nuevo', 'UserController@')
-Route::get('/usuarios/nuevo', 'UserController@create');
+Route::get('/usuarios/nuevo', 'UserController@create')
+    ->name('users.create');
 
 Route::get('/saludo/{name}/{nickname?}','WelcomeUserController');//el segundo parametro es opcional es por esto ?
 /*
