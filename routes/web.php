@@ -25,3 +25,13 @@ las pruebas se ejecutan desde la consola con el comando vendor/bin/phpunit. pero
 SE CREÓ EL LA PRUEBA UsersModuleTest, QUE SE ENCARGA DE PROBAR LAS RUTAS DE USUARIO QUE HAY EN ESTE PEQUEÑO TUTORIAL 
 
 */
+
+/*Para la creacion de usuarios se crearán las siguientes rutas get, y ademas para un registro se necesitan dos rutas, 
+una para mostrar el formulario y otra para procesar esos datos y crear el usuario
+
+    El metodo get sirve para definir rutas que nos permiten obtener y mostrar informacion al usuario
+
+    El metodo post sirve para procesar informacion que va a cambiar algun dato en la aplicacion
+*/
+
+Route::post('/usuarios/crear','UserController@store');

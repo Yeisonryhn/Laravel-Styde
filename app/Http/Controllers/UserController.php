@@ -35,7 +35,8 @@ class UserController extends Controller
 
     }
 
-    public function show(User $user){//Ahora recibe un modelo de laravel
+    public function show(User $user)
+    {//Ahora recibe un modelo de laravel
         //$user=User::findOrFail($id);
         /*if($user==null){
             return view('errors.404');
@@ -45,8 +46,14 @@ class UserController extends Controller
         return view('users/show', compact('user'));
     }
 
-    public function create(){
-    	return view('login/registro');
+    public function create()
+    {
+    	return view('users.create');
+    }
+
+    public function store()
+    {
+        return 'Procesando Informacion';
     }
 
 }
