@@ -11,6 +11,9 @@
                 @foreach ($users as $user)
                     <!--<li><//?php echo e($user) ?></li>-->
                     <li>{{$user->name}}, {{$user->email}}</li>
+                    <a href="{{ url('/usuarios/'.$user->id)}}">Ver detalles</a>
+                    <!-- esta es una forma de redireccionar enlaces que nos ofrece laravel, tambien se puede hacer
+                     de la siguiente manera!-->
                 @endforeach   
             </ul>       
         @else
