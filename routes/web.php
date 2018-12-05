@@ -6,7 +6,7 @@ Route::get('/prueba',function(){
     return view('indexx');
 });
 Route::get('/usuarios', 'UserController@index')
-    ->name('users');
+    ->name('users.index');
 //Route::get('/usuarios/')
 Route::get('/usuarios/{user}', 'UserController@show')
     ->name('users.show')
@@ -34,4 +34,4 @@ una para mostrar el formulario y otra para procesar esos datos y crear el usuari
     El metodo post sirve para procesar informacion que va a cambiar algun dato en la aplicacion
 */
 
-Route::post('/usuarios/crear','UserController@store');
+Route::post('/usuarios','UserController@store');

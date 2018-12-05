@@ -48,12 +48,19 @@ class UserController extends Controller
 
     public function create()
     {
-    	return view('users.create');
+        return view('users/create');
     }
 
     public function store()
     {
-        return 'Procesando Informacion';
+        $data = request()->all();
+        //dd($data);
+        User::create([
+            'name' => $data["name"],
+            'email' => $data["email"],
+            'password' => bcrypt($data["password"]),
+        ]);
+        return redirect()->route('users.index');//redirecciona a la ruta con nombre de listado de usuarios
     }
 
 }

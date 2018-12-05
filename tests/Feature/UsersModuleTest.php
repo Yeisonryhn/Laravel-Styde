@@ -81,4 +81,33 @@ class UsersModuleTest extends TestCase
         	->assertStatus(200)
         	->assertSee('Ruta para crear un nuevo usuario');
     }
+
+    /**
+     * *metodo que prueba la ruta de crear nuevo usuario
+     * @test
+     */
+    function al_crear_un_nuevo_usuario()
+    {   
+        //$this->withoutExceptionHandling();
+        
+        $this->post('/usuarios/',[
+            'name' => 'Yeison Fuentes',
+            'email' => 'Yeisonfuentes@correo.net',
+            'password' => '123456'
+        ])->assertRedirect('/usuarios');//Testea que devuelva una redireccion a la url de listado de usuarios
+        /*como estamos hablando de un usuario para testear que se estan enviando los datos correctos
+        se usa assertCredentials, ya que el bcrypt crea una contraseña encriptada distinta cada vez que se usa    */
+        $this->assertCredentials([
+            'name' => 'Yeison Fuentes',
+            'email' => 'Yeisonfuentes@correo.net',
+            'password' => '123456'
+        ]);
+
+        /*en caso contrario que sea otra tabla podemos usar el siguiente metodo*/
+        /*$this->assertDatabaseHas('users' ,  [
+            'name' => 'Yeison Fuentes',
+            'email' => 'Yeisonfuentes@correo.net',
+        ]);*/
+        
+    }
 }
