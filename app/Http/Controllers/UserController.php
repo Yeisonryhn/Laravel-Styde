@@ -54,8 +54,11 @@ class UserController extends Controller
     public function store()
     {
         //$data = request()->all();
-        $data = request()->validate([
-            'name'=>'required'
+        $data = request()->validate([/*el metodo validate, devuelve los campos especificados abajo, y con 
+                                        las validaciones que pongamos*/         
+            'name'=>'required',
+            'email'=>[ 'required' , 'email' , 'unique:users,email' ],//En este campo hay especificadas tres reglas de validacion
+            'password'=>[ 'required' , 'min:6', 'max:20' ]
         ],[
             'name.required'=>'El campo nombre es obligatorio'
         ]);

@@ -112,7 +112,7 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-    function the_name_id_required()
+    function the_name_is_required()
     {//VERIFICA QUE EL CAMPO NAME SEA OBLIGATORIO
         $this->from('usuarios/nuevo')//Esto nos dice que la peticion post se hace desde la url usuarios/nuevo
             ->post('/usuarios/',[
@@ -133,6 +133,91 @@ class UsersModuleTest extends TestCase
             'email'=>'Yeisonfuentes@correo.net'
         ]);*/
 
+    }
+    /** @test */
+    function the_email_is_required()
+    {//VERIFICA QUE EL CAMPO EMAIL SEA OBLIGATORIO
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios/',[
+                'name'=>'Yeison Fuentes',
+                'email' => '',
+                'password' => '123456'
+        ])
+        ->assertRedirect('/usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+                
+        $this->assertEquals(0,User::count());
+    }
+
+    /** @test */
+    function email_must_be_valid()
+    {//VERIFICA QUE EL CAMPO EMAIL SEA VALIDO
+
+       
+
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios/',[
+                'name'=>'Yeison Fuentes',
+                'email' => 'correo-no-valido',
+                'password' => '123456'
+        ])
+        ->assertRedirect('/usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+                
+        $this->assertEquals(0,User::count());
+    }
+
+    /** @test */
+    function email_must_be_unique()
+    {//VERIFICA QUE EL CAMPO EMAIL SEA UNICO
+
+        //$this->withoutExceptionHandling();
+
+        //crea un usuario aleatorio con el siguiente correo
+        factory(User::class)->create([
+            'email'=>'yeison@correo.com'
+        ]);
+        //envia una peticion post para crear un nuevo usuario pero con el email anterior, deberia verificar si es unico    
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios/',[
+                'name'=>'Yeison Fuentes',
+                'email' => 'yeison@correo.com',
+                'password' => '123456'
+        ])
+        ->assertRedirect('/usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+                
+        $this->assertEquals(1,User::count());
+    }
+
+    /** @test */
+    function the_password_is_required()
+    {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios/',[
+                'name'=>'Yeison Fuentes',
+                'email' => 'yeisonfuentes@correo.com',
+                'password' => ''
+        ])
+        ->assertRedirect('/usuarios/nuevo')
+        ->assertSessionHasErrors(['password']);
+                
+        $this->assertEquals(0,User::count());
+    }
+
+    /** @test */
+    function the_password_must_have_min_6_digits()
+    {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios/',[
+                'name'=>'Yeison Fuentes',
+                'email' => 'yeisonfuentes@correo.com',
+                'password' => '12345'
+        ])
+        ->assertRedirect('/usuarios/nuevo')
+        ->assertSessionHasErrors(['password']);
+                
+        $this->assertEquals(0,User::count());
     }
 
      
