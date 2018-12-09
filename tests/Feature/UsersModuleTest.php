@@ -88,13 +88,13 @@ class UsersModuleTest extends TestCase
      */
     function al_crear_un_nuevo_usuario()
     {   
-        //$this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         
         $this->post('/usuarios/',[
             'name' => 'Yeison Fuentes',
             'email' => 'Yeisonfuentes@correo.net',
             'password' => '123456'
-        ])->assertRedirect('/usuarios');//Testea que devuelva una redireccion a la url de listado de usuarios
+        ])->assertRedirect('usuarios');//Testea que devuelva una redireccion a la url de listado de usuarios
         /*como estamos hablando de un usuario para testear que se estan enviando los datos correctos
         se usa assertCredentials, ya que el bcrypt crea una contraseña encriptada distinta cada vez que se usa    */
         $this->assertCredentials([
@@ -110,4 +110,30 @@ class UsersModuleTest extends TestCase
         ]);*/
         
     }
+
+    /** @test */
+    function the_name_id_required()
+    {//VERIFICA QUE EL CAMPO NAME SEA OBLIGATORIO
+        $this->from('usuarios/nuevo')//Esto nos dice que la peticion post se hace desde la url usuarios/nuevo
+            ->post('/usuarios/',[
+                'name'=>'',//el campo nombre va vacio, o null
+                'email' => 'Yeisonfuentes@correo.net',
+                'password' => '123456'
+        ])
+        ->assertRedirect('/usuarios/nuevo')//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['name'=>'El campo nombre es obligatorio']);//pero ahora con este mensaje de error
+                
+        $this->assertEquals(0,User::count());
+        /*Deberian haber cero usuarios puesto que estamos usando la base de datos para las pruebas, y como se está usando el
+         método RefreshDatabase, no deberia haber ningun usuario registrado al inicio de cada prueba, como esta prueba no 
+         deberia registrar ningun usuario, deberia haber cero.*/
+
+                
+        /*$this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'email'=>'Yeisonfuentes@correo.net'
+        ]);*/
+
+    }
+
+     
 }
