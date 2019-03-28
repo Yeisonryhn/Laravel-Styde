@@ -15,7 +15,9 @@ Route::get('/usuarios/{user}', 'UserController@show')
 Route::get('/usuarios/nuevo', 'UserController@create')
     ->name('users.create');
 
+
 Route::get('/saludo/{name}/{nickname?}','WelcomeUserController');//el segundo parametro es opcional es por esto ?
+
 /*
 Es importante tener en cuenta el orden de las rutas porque ponerlas en un otro orden podria ocasionar errores
 NOTA PARA VERIFICAR QUE ESTAS RUTAS ESTAN FUNCIONANDO CORRECTAMENTE LARAVEL TIENE UNA CARPETA LLAMADA TESTS EN LA QUE SE PUEDE ESCRIBIR CODIGO QUE SE ENCARGA DE PROBAR EL CODIGO DE LA APLICACION, HAY 2 CARPETAS, EL DIRECTORIO FEATURE QUE ES EN EL QUE SE HACEN PRUEBAS QUE SIMULAN CODIGO HTTP, Y EL DIRECTORIO UNIT QUE ES EN EL QUE SE VAN A HACER PRUEBAS DE PARTES ESPECIFICAS DE LA PAGINA WEB, COMO CLASES Y METODOS.
@@ -35,3 +37,5 @@ una para mostrar el formulario y otra para procesar esos datos y crear el usuari
 */
 
 Route::post('/usuarios','UserController@store');
+
+Route::get('usuarios/{user}/editar', 'UserController@edit')->name('users.edit');	

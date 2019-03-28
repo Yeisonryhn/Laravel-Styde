@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;//SE DEBE IMPORTAR ESTA CLASE PARA PODER USAR EL MODELO USER PARA PODER TRAER DATOS DE LA BASE DE DATOS
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;//RECORDAR SIEMPRE IMPORTAR ESTA CLASE PARA USAR EL DB;
-use App\User;//SE DEBE IMPORTAR ESTA CLASE PARA PODER USAR EL MODELO USER PARA PODER TRAER DATOS DE LA BASE DE DATOS
+
 
 class UserController extends Controller
 {
@@ -70,6 +70,11 @@ class UserController extends Controller
             'password' => bcrypt($data["password"]),
         ]);
         return redirect()->route('users.index');//redirecciona a la ruta con nombre de listado de usuarios
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', [ 'user' => $user ]);
     }
 
 }
