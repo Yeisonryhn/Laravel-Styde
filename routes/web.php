@@ -8,6 +8,7 @@ Route::get('/prueba',function(){
 Route::get('/usuarios', 'UserController@index')
     ->name('users.index');
 //Route::get('/usuarios/')
+
 Route::get('/usuarios/{user}', 'UserController@show')
     ->name('users.show')
     ->where('user','[0-9]+'); // lo de los corchetes es un parámetro dinámico
@@ -38,4 +39,7 @@ una para mostrar el formulario y otra para procesar esos datos y crear el usuari
 
 Route::post('/usuarios','UserController@store');
 
-Route::get('usuarios/{user}/editar', 'UserController@edit')->name('users.edit');	
+
+Route::put('/usuarios/{user}' , 'UserController@update');//La ruta por el metodo put se usa para actualizar datos en la base de datos
+
+Route::get('usuarios/{user}/editar', 'UserController@edit')->name('users.edit');//Ruta para la edicion de usuarios	

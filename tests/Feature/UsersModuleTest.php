@@ -243,4 +243,29 @@ class UsersModuleTest extends TestCase
             });//Revisa que la vista tenga una variable llamada user y que sea el objeto $user
     }
      
+
+    /**
+    * *metodo que prueba la ruta de crear nuevo usuario
+    * @test
+    */
+    function al_actualizar_un_usuario()
+    {   
+        $user = factory(User::class)->create();
+
+        $this->withoutExceptionHandling();
+        
+        $this->put("/usuarios/{$user->id}",[
+            'name' => 'Yeison Fuentes',
+            'email' => 'Yeisonfuentes@correo.net',
+            'password' => '123456'
+        ])->assertRedirect("/usuarios/{$user->id}");
+        
+        $this->assertCredentials([
+            'name' => 'Yeison Fuentes',
+            'email' => 'Yeisonfuentes@correo.net',
+            'password' => '123456'
+        ]);
+
+        
+    }
 }
