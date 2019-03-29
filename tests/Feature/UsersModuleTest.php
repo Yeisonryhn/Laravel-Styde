@@ -268,4 +268,137 @@ class UsersModuleTest extends TestCase
 
         
     }
+
+    /** @test */
+    function the_name_is_required_when_updating_a_user()
+    {//VERIFICA QUE EL CAMPO NAME SEA OBLIGATORIO CUANDO SE ACTUALIZA UN USUARIO
+        //$this->withoutExceptionHandling();
+        $user=factory(User::class)->create();
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'',
+                'email' => 'Yeisonfuentes@correo.net',
+                'password' => '123456'
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['name'=>'El campo nombre es obligatorio']);//pero ahora con este mensaje de error
+                
+        
+                
+        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'email'=>'Yeisonfuentes@correo.net'
+        ]);
+
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
+    /** @test */
+    function the_email_is_required_when_updating_a_user()
+    {//$this->withoutExceptionHandling();
+        $user=factory(User::class)->create();
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentes',
+                'email' => '',
+                'password' => '123456'
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['email']);//pero ahora con este mensaje de error
+                
+        
+                
+        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'email'=>'Yeisonfuentes@correo.net'
+        ]);
+
+    }
+
+    /** @test */
+    function email_must_be_valid_when_updating_a_user()
+    {//VERIFICA QUE EL CAMPO EMAIL SEA VALIDO
+
+        $user=factory(User::class)->create();
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentes',
+                'email' => 'correo-no-valido',
+                'password' => '123456'
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['email']);//pero ahora con este mensaje de error
+                
+        
+                
+        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'name'=>'YeisonFuentes'
+        ]);
+    }
+
+    /** @test */
+    function email_must_be_unique_when_updating_a_user()
+    {//VERIFICA QUE EL CAMPO EMAIL SEA UNICO
+
+        //$this->withoutExceptionHandling();
+        self::markTestIncomplete();//la prueba no la tenemos compñeta
+        return;
+        //crea un usuario aleatorio con el siguiente correo
+        $user=factory(User::class)->create([
+            'email'=>'yeison@correo.com'
+        ]);
+        //envia una peticion post para crear un nuevo usuario pero con el email anterior, deberia verificar si es unico    
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentes',
+                'email' => 'yeison@correo.com',
+                'password' => '123456'
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['email']);//pero ahora con este mensaje de error
+        $this->assertEquals(1,User::count());
+    }
+
+    /** @test */
+    function the_password_is_required_when_updating_a_user()
+    {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
+        //$this->withoutExceptionHandling();
+        $user=factory(User::class)->create();
+
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentes',
+                'email' => 'yeison@correo.net',
+                'password' => ''
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['password']);//pero ahora con este mensaje de error
+                
+        
+                
+        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'name'=>'YeisonFuentes'
+        ]);
+        
+    }
+
+    /** @test */
+    function the_password_must_have_min_6_digits_when_updating_a_user()
+    {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
+        //$this->withoutExceptionHandling();
+        $user=factory(User::class)->create();
+
+        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentes',
+                'email' => 'yeison@correo.net',
+                'password' => '12345'
+        ])
+        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
+        ->assertSessionHasErrors(['password']);//pero ahora con este mensaje de error
+                
+        
+                
+        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
+            'name'=>'YeisonFuentes'
+        ]);
+    }
 }

@@ -80,7 +80,14 @@ class UserController extends Controller
     public function update(User $user)
     {
 
-        $data=request()->all();
+        $data = request()->validate([/*el metodo validate, devuelve los campos especificados abajo, y con 
+                                        las validaciones que pongamos*/         
+            'name'=>'required',
+            'email'=>[ 'required' , 'email' ],//En este campo hay especificadas tres reglas de validacion
+            'password'=>[ 'required' , 'min:6', 'max:20' ]
+        ],[
+            'name.required'=>'El campo nombre es obligatorio'
+        ]);
 
         $data['password'] = bcrypt( $data['password'] );
         
