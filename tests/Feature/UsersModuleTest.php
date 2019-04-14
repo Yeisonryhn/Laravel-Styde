@@ -358,30 +358,33 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-    function the_password_is_required_when_updating_a_user()
-    {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
-        //$this->withoutExceptionHandling();
-        $user=factory(User::class)->create();
+    function the_password_is_optional_when_updating_a_user()
+    {
+        $this->withoutExceptionHandling();
+        $oldPassword = 'CLAVE_ANTERIOR';
 
-        $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
+        $user=factory(User::class)->create([
+            'password' => bcrypt($oldPassword)//Muy importante encriptar esa clave
+        ]);
+
+        $this->from("usuarios/{$user->id}/editar")
             ->put("usuarios/{$user->id}",[
-                'name'=>'YeisonFuentes',
-                'email' => 'yeison@correo.net',
+                'name'=>'YeisonFuentessss',
+                'email' => 'yeisonsss@correo.net',
                 'password' => ''
-        ])
-        ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
-        ->assertSessionHasErrors(['password']);//pero ahora con este mensaje de error
+            ])
+        ->assertRedirect("/usuarios/{$user->id}");//users.show     
                 
-        
-                
-        $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
-            'name'=>'YeisonFuentes'
+        $this->assertCredentials([//verifica que en la base de datos no haya un usuario con ese correo
+            'name'=>'YeisonFuentessss',
+            'email' => 'yeisonsss@correo.net',
+            'password' => $oldPassword //Muy Importante
         ]);
         
     }
 
     /** @test */
-    function the_password_must_have_min_6_digits_when_updating_a_user()
+    /*function the_password_must_have_min_6_digits_when_updating_a_user()
     {//VERIFICA QUE EL CAMPO PASSWORD SEA OBLIGATORIO
         //$this->withoutExceptionHandling();
         $user=factory(User::class)->create();
@@ -400,5 +403,5 @@ class UsersModuleTest extends TestCase
         $this->assertDatabaseMissing('users',[//verifica que en la base de datos no haya un usuario con ese correo
             'name'=>'YeisonFuentes'
         ]);
-    }
+    }*/
 }

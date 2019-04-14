@@ -84,12 +84,18 @@ class UserController extends Controller
                                         las validaciones que pongamos*/         
             'name'=>'required',
             'email'=>[ 'required' , 'email' ],//En este campo hay especificadas tres reglas de validacion
-            'password'=>[ 'required' , 'min:6', 'max:20' ]
+            'password'=>[]
         ],[
             'name.required'=>'El campo nombre es obligatorio'
         ]);
 
-        $data['password'] = bcrypt( $data['password'] );
+        if ($data['password'] != null) {
+
+            $data['password'] = bcrypt( $data['password'] );
+
+        } else {
+            unset($data['password']);    
+        }
         
         $user->update($data);
 
