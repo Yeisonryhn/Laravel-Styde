@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\User;//SE DEBE IMPORTAR ESTA CLASE PARA PODER USAR EL MODELO USER PARA PODER TRAER DATOS DE LA BASE DE DATOS
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;//RECORDAR SIEMPRE IMPORTAR ESTA CLASE PARA USAR EL DB;
-
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -83,7 +83,10 @@ class UserController extends Controller
         $data = request()->validate([/*el metodo validate, devuelve los campos especificados abajo, y con 
                                         las validaciones que pongamos*/         
             'name'=>'required',
-            'email'=>[ 'required' , 'email' ],//En este campo hay especificadas tres reglas de validacion
+            'email'=>[ 'required',
+                        'email',
+                        Rule::unique('users')->ignore($user->id)
+                        ],//Ignora que el email sea unico si es el email que estoy metiendo pertenece al mismo usuario],//En este campo hay especificadas tres reglas de validacion
             'password'=>[]
         ],[
             'name.required'=>'El campo nombre es obligatorio'
@@ -100,5 +103,11 @@ class UserController extends Controller
         $user->update($data);
 
         return redirect()->route('users.show' ,  ['user' => $user]);
+    }
+
+    public function destroy(User $user){
+
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }

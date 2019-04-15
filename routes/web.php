@@ -41,5 +41,5 @@ Route::post('/usuarios','UserController@store');
 
 
 Route::put('/usuarios/{user}' , 'UserController@update');//La ruta por el metodo put se usa para actualizar datos en la base de datos
-
+Route::delete('/usuarios/{user}' , 'UserController@destroy')->name('users.destroy');
 Route::get('usuarios/{user}/editar', 'UserController@edit')->name('users.edit');//Ruta para la edicion de usuarios	

@@ -339,22 +339,29 @@ class UsersModuleTest extends TestCase
     {//VERIFICA QUE EL CAMPO EMAIL SEA UNICO
 
         //$this->withoutExceptionHandling();
-        self::markTestIncomplete();//la prueba no la tenemos compñeta
-        return;
+        //self::markTestIncomplete();//la prueba no la tenemos compñeta
+        //return;
         //crea un usuario aleatorio con el siguiente correo
-        $user=factory(User::class)->create([
-            'email'=>'yeison@correo.com'
+        
+
+        factory(User::class)->create([
+            'email'=>'correo_existente@correo.com'
         ]);
+
+
+        $user=factory(User::class)->create(['email' => 'Yeison@correo.net']);
+
         //envia una peticion post para crear un nuevo usuario pero con el email anterior, deberia verificar si es unico    
         $this->from("usuarios/{$user->id}/editar")//Esto nos dice que la peticion put se hace desde la url usuarios/numero de usuario/editar
             ->put("usuarios/{$user->id}",[
                 'name'=>'YeisonFuentes',
-                'email' => 'yeison@correo.com',
-                'password' => '123456'
+                'email' => 'correo_existente@correo.com',
+                'password' => '1234567'
         ])
         ->assertRedirect("/usuarios/{$user->id}/editar")//debe redireccionar a la url /usuarios/nuevo
         ->assertSessionHasErrors(['email']);//pero ahora con este mensaje de error
-        $this->assertEquals(1,User::count());
+        
+        //$this->assertEquals(2,User::count());
     }
 
     /** @test */
@@ -381,6 +388,47 @@ class UsersModuleTest extends TestCase
             'password' => $oldPassword //Muy Importante
         ]);
         
+    }
+    /** @test */
+    function the_email_can_stay_the_same_when_updating_a_user()
+    {
+        $user=factory(User::class)->create([
+            'email' => 'Yeison@styde.net'//Muy importante encriptar esa clave
+        ]);
+
+        $this->from("usuarios/{$user->id}/editar")
+            ->put("usuarios/{$user->id}",[
+                'name'=>'YeisonFuentessss',
+                'email' => 'Yeison@styde.net',
+                'password' => '1234567'
+            ])
+        ->assertRedirect("/usuarios/{$user->id}");//users.show     
+                
+        $this->assertDatabaseHas( 'users', [//verifica que en la base de datos haya un usuario con ese correo
+            'name'=>'YeisonFuentessss',
+            'email' => 'Yeison@styde.net'
+        ]);        
+    }
+
+    /** @test */
+    function it_deletes_a_user(){
+
+        $this->withoutExceptionHandling();
+
+        $user=factory(User::class)->create([
+            'email' => 'Yeison@styde.net'//Muy importante encriptar esa clave
+        ]);
+
+        $this->delete("usuarios/{$user->id}")
+        ->assertRedirect("usuarios");
+
+        $this->assertDatabaseMissing('users',[
+            'email' => 'Yeison@styde.net'
+        ]);
+
+        /*Tambien se puede usar este método
+        $this->assertEquals(0,User::count());//verifica que el conteo de los usuarios en base de datos sea igual a cero
+        */
     }
 
     /** @test */
